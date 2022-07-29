@@ -3542,6 +3542,7 @@ VK_IMPORT_DEVICE
 				| (m_lineAASupport ? BGFX_STATE_LINEAA : 0)
 				| (g_caps.supported & BGFX_CAPS_CONSERVATIVE_RASTER ? BGFX_STATE_CONSERVATIVE_RASTER : 0)
 				| BGFX_STATE_PT_MASK
+				| BGFX_STATE_WIREFRAME
 				;
 
 			_stencil &= packStencil(~BGFX_STENCIL_FUNC_REF_MASK, ~BGFX_STENCIL_FUNC_REF_MASK);
@@ -3607,7 +3608,7 @@ VK_IMPORT_DEVICE
 			inputAssemblyState.primitiveRestartEnable = VK_FALSE;
 
 			VkPipelineRasterizationStateCreateInfo rasterizationState;
-			setRasterizerState(rasterizationState, _state, m_wireframe);
+			setRasterizerState(rasterizationState, _state, m_wireframe || _state & BGFX_STATE_WIREFRAME);
 
 			VkBaseInStructure* nextRasterizationState = (VkBaseInStructure*)&rasterizationState;
 
