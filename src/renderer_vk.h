@@ -35,6 +35,11 @@
 #include "renderer.h"
 #include "debug_renderdoc.h"
 
+// VK can include X11 which #defines None...
+#if defined(None) && defined(X_PROTOCOL)
+#undef None
+#endif
+
 #define VK_IMPORT                                                          \
 			VK_IMPORT_FUNC(false, vkCreateInstance);                       \
 			VK_IMPORT_FUNC(false, vkGetInstanceProcAddr);                  \
